@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Полное Меню | ByteBites Cafe</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#121212',
+                            surface: '#1A1A1A',
+                            card: '#1E1E1E',
+                            border: '#2A2A2A',
+                            primary: '#FF6B00',
+                            primaryHover: '#E05E00',
+                            accent: '#FF8C38',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Supabase JS Client SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Custom Modular CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Modular App Entry Script -->
+    <script type="module" src="js/main.js"></script>
+</head>
+<body data-page="menu" class="bg-brand-bg text-white antialiased min-h-screen flex flex-col selection:bg-brand-primary selection:text-white">
+
+    <!-- STICKY NAVBAR HEADER -->
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-brand-bg/90 border-b border-brand-border/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-primary to-amber-500 flex items-center justify-center shadow-glow group-hover:scale-105 transition-transform duration-300">
+                    <i class="fa-solid fa-fire-flame-curved text-xl text-white"></i>
+                </div>
+                <span class="text-2xl font-extrabold tracking-tight text-white group-hover:text-brand-primary transition-colors">
+                    ByteBites<span class="text-brand-primary">.</span>
+                </span>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-300">
+                <a href="index.html" data-i18n="nav.home" class="hover:text-brand-primary transition-colors py-1">Главная</a>
+                <a href="menu.html" data-i18n="nav.menu" class="text-brand-primary font-bold py-1">Меню</a>
+                <a href="index.html#about" data-i18n="nav.about" class="hover:text-brand-primary transition-colors py-1">О нас</a>
+                <a href="#" class="btn-open-vip hover:text-brand-primary transition-colors py-1 flex items-center gap-1.5 text-amber-400">
+                    <i class="fa-solid fa-crown text-xs"></i>
+                    <span data-i18n="nav.vipClub">VIP Клуб</span>
+                </a>
+            </nav>
+
+            <!-- Action Controls -->
+            <div class="flex items-center gap-3">
+                
+                <!-- Language Selector Dropdown -->
+                <div class="relative">
+                    <button id="lang-switch-btn" aria-label="Select Language" class="bg-brand-surface hover:bg-brand-card border border-brand-border hover:border-brand-primary/50 text-gray-200 px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all">
+                        <i class="fa-solid fa-globe text-brand-primary"></i>
+                        <span id="current-lang-label">RU</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] text-gray-400"></i>
+                    </button>
+                    <div id="lang-dropdown-menu" class="lang-dropdown hidden absolute right-0 mt-2 w-36 bg-brand-surface border border-brand-border rounded-xl shadow-2xl overflow-hidden z-50 py-1">
+                        <button data-lang="ru" class="w-full px-4 py-2 text-left text-xs font-semibold text-gray-300 hover:bg-brand-primary hover:text-white flex items-center justify-between transition-colors">
+                            <span>Русский</span>
+                            <span class="text-[10px] opacity-75">RU</span>
+                        </button>
+                        <button data-lang="en" class="w-full px-4 py-2 text-left text-xs font-semibold text-gray-300 hover:bg-brand-primary hover:text-white flex items-center justify-between transition-colors">
+                            <span>English</span>
+                            <span class="text-[10px] opacity-75">EN</span>
+                        </button>
+                        <button data-lang="uz" class="w-full px-4 py-2 text-left text-xs font-semibold text-gray-300 hover:bg-brand-primary hover:text-white flex items-center justify-between transition-colors">
+                            <span>O'zbekcha</span>
+                            <span class="text-[10px] opacity-75">UZ</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Add Dish Button -->
+                <button class="btn-open-add-dish hidden sm:flex bg-brand-surface hover:bg-brand-card border border-brand-border hover:border-brand-primary/50 text-gray-300 hover:text-brand-primary px-3 py-2 rounded-xl text-xs font-bold items-center gap-1.5 transition-all">
+                    <i class="fa-solid fa-plus text-xs"></i>
+                    <span data-i18n="nav.addDish">Добавить блюдо</span>
+                </button>
+
+                <!-- Cart Button -->
+                <button id="navbar-cart-btn" class="relative bg-brand-surface hover:bg-brand-card border border-brand-border hover:border-brand-primary/50 text-white p-2.5 sm:px-4 sm:py-2.5 rounded-xl transition-all flex items-center gap-2 group">
+                    <i class="fa-solid fa-bag-shopping text-base group-hover:text-brand-primary transition-colors"></i>
+                    <span class="hidden sm:inline text-xs font-bold" data-i18n="nav.cart">Корзина</span>
+                    <span id="navbar-cart-count" class="hidden absolute -top-2 -right-2 bg-brand-primary text-white text-xs font-extrabold w-5 h-5 rounded-full flex items-center justify-center shadow-glow">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- FULL MENU CONTENT -->
+    <main class="flex-grow py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-10 space-y-3">
+            <span class="text-brand-primary text-xs font-bold uppercase tracking-widest" data-i18n="menu.tag">ПРИГОТОВЛЕНО С ЛЮБОВЬЮ</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-white" data-i18n="menu.title">Наше фирменное меню</h1>
+            <p class="text-gray-400 text-sm sm:text-base" data-i18n="menu.subtitle">Каждое блюдо готовится только после вашего заказа из фермерских ингредиентов и фирменных соусов.</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="max-w-md mx-auto mb-8">
+            <div class="relative">
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input 
+                    id="full-menu-search-input" 
+                    type="text" 
+                    data-i18n-placeholder="menu.search_placeholder" 
+                    placeholder="Поиск бургеров, пиццы, напитков..." 
+                    class="w-full bg-brand-surface border border-brand-border focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-white text-sm rounded-2xl pl-11 pr-4 py-3.5 outline-none transition-all placeholder-gray-500"
+                >
+            </div>
+        </div>
+
+        <!-- Category Pills -->
+        <div class="flex items-center justify-center gap-3 flex-wrap mb-12" id="full-category-pills-container"></div>
+
+        <!-- Menu Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="full-menu-grid-container"></div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black/90 border-t border-brand-border/80 py-10 text-gray-400 text-sm mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p>© 2026 ByteBites Cafe. <span data-i18n="footer.rights">Все права защищены. Создано со вкусом для гурманов.</span></p>
+        </div>
+    </footer>
+
+    <!-- CART OVERLAY & DRAWER -->
+    <div id="cart-backdrop" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 hidden transition-opacity duration-300"></div>
+    <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-brand-surface border-l border-brand-border z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between shadow-2xl">
+        <div class="p-6 border-b border-brand-border/80 flex items-center justify-between bg-brand-bg">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-brand-primary/20 text-brand-primary flex items-center justify-center"><i class="fa-solid fa-bag-shopping"></i></div>
+                <div>
+                    <h3 class="text-lg font-extrabold text-white" data-i18n="cart.title">Ваш заказ</h3>
+                    <p class="text-xs text-gray-400"><span id="cart-drawer-count">0</span> <span data-i18n="cart.items_count">позиций</span></p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button id="clear-cart-btn" class="text-xs text-gray-400 hover:text-red-400 px-2 py-1" data-i18n="cart.clear_btn">Очистить</button>
+                <button id="close-cart-btn" class="w-9 h-9 rounded-lg bg-brand-card hover:bg-gray-700 text-gray-400 hover:text-white flex items-center justify-center"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+        </div>
+        <div id="cart-empty-state" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center">
+            <div class="w-20 h-20 rounded-full bg-brand-card border border-brand-border flex items-center justify-center text-3xl text-gray-600 mb-4"><i class="fa-solid fa-bag-shopping"></i></div>
+            <h4 class="text-base font-bold text-white mb-1" data-i18n="cart.empty_title">Ваша корзина пуста!</h4>
+            <p class="text-xs text-gray-400 max-w-xs mb-6" data-i18n="cart.empty_desc">Выберите аппетитные бургеры, хрустящую пиццу или закуски из нашего меню.</p>
+        </div>
+        <div id="cart-items-container" class="p-6 flex-grow overflow-y-auto space-y-4"></div>
+        <div id="cart-summary-footer" class="p-6 border-t border-brand-border/80 bg-brand-bg space-y-4">
+            <div class="space-y-2 text-xs sm:text-sm text-gray-400">
+                <div class="flex justify-between"><span data-i18n="cart.subtotal">Сумма</span><span id="cart-subtotal-val" class="font-bold text-white">$0.00</span></div>
+                <div class="flex justify-between"><span data-i18n="cart.delivery_fee">Доставка</span><span class="font-bold text-emerald-400" data-i18n="cart.delivery_free">БЕСПЛАТНО</span></div>
+                <div class="flex justify-between text-base font-extrabold text-white pt-2 border-t border-brand-border/60"><span data-i18n="cart.total">Итого к оплате</span><span id="cart-total-val" class="text-brand-primary">$0.00</span></div>
+            </div>
+            <button id="cart-checkout-btn" class="w-full py-4 bg-brand-primary hover:bg-brand-primaryHover text-white font-bold rounded-xl shadow-glow flex items-center justify-center gap-2">
+                <span data-i18n="cart.checkout_btn">Оформить заказ</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- VIP MODAL -->
+    <div id="vip-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden bg-black/80 backdrop-blur-md">
+        <div class="relative bg-brand-card border border-brand-border rounded-3xl w-full max-w-md p-6 sm:p-8 shadow-2xl space-y-6">
+            <div class="flex items-center justify-between border-b border-brand-border/80 pb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg"><i class="fa-solid fa-crown"></i></div>
+                    <div>
+                        <h3 class="text-lg font-black text-white" data-i18n="modal_vip.title">Вступить в VIP-клуб</h3>
+                        <p class="text-xs text-gray-400" data-i18n="modal_vip.subtitle">Получите скидку 20%.</p>
+                    </div>
+                </div>
+                <button id="close-vip-modal" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="vip-form" class="space-y-4">
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-bold text-gray-300 uppercase" data-i18n="modal_vip.name_label">Имя</label>
+                    <input name="name" type="text" required placeholder="Иван" class="w-full bg-brand-surface border border-brand-border focus:border-brand-primary text-white text-sm rounded-xl px-4 py-3 outline-none">
+                </div>
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-bold text-gray-300 uppercase" data-i18n="modal_vip.email_label">Email</label>
+                    <input name="email" type="email" required placeholder="ivan@example.com" class="w-full bg-brand-surface border border-brand-border focus:border-brand-primary text-white text-sm rounded-xl px-4 py-3 outline-none">
+                </div>
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-bold text-gray-300 uppercase" data-i18n="modal_vip.phone_label">Телефон</label>
+                    <input name="phone" type="tel" required placeholder="+7 (999) 000-00-00" class="w-full bg-brand-surface border border-brand-border focus:border-brand-primary text-white text-sm rounded-xl px-4 py-3 outline-none">
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-black font-extrabold rounded-xl shadow-glow" data-i18n="modal_vip.submit_btn">Получить скидку 20%</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADD DISH MODAL -->
+    <div id="add-dish-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden bg-black/80 backdrop-blur-md overflow-y-auto">
+        <div class="relative bg-brand-card border border-brand-border rounded-3xl w-full max-w-lg p-6 sm:p-8 shadow-2xl space-y-5 my-8">
+            <div class="flex items-center justify-between border-b border-brand-border/80 pb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-brand-primary/20 text-brand-primary flex items-center justify-center"><i class="fa-solid fa-utensils"></i></div>
+                    <div>
+                        <h3 class="text-lg font-black text-white" data-i18n="modal_add_dish.title">Добавить блюдо</h3>
+                    </div>
+                </div>
+                <button id="close-add-dish-modal" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="add-dish-form" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 uppercase mb-1" data-i18n="modal_add_dish.name_label">Название</label>
+                        <input name="name" type="text" required placeholder="Бургер" class="w-full bg-brand-surface border border-brand-border text-white text-sm rounded-xl px-4 py-2.5 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 uppercase mb-1" data-i18n="modal_add_dish.category_label">Категория</label>
+                        <select name="category" class="w-full bg-brand-surface border border-brand-border text-white text-sm rounded-xl px-4 py-2.5 outline-none">
+                            <option value="burgers">Burgers</option>
+                            <option value="pizza">Pizza</option>
+                            <option value="sides">Sides</option>
+                            <option value="drinks">Drinks</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 uppercase mb-1" data-i18n="modal_add_dish.price_label">Цена</label>
+                        <input name="price" type="number" step="0.01" required placeholder="9.99" class="w-full bg-brand-surface border border-brand-border text-white text-sm rounded-xl px-4 py-2.5 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 uppercase mb-1" data-i18n="modal_add_dish.badge_label">Бейдж</label>
+                        <input name="badge" type="text" placeholder="Popular ⭐" class="w-full bg-brand-surface border border-brand-border text-white text-sm rounded-xl px-4 py-2.5 outline-none">
+                    </div>
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-brand-primary text-white font-bold rounded-xl shadow-glow" data-i18n="modal_add_dish.submit_btn">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CHECKOUT SUCCESS MODAL -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden bg-black/80 backdrop-blur-md">
+        <div class="relative bg-brand-card border border-brand-border rounded-3xl max-w-md w-full p-6 sm:p-8 text-center space-y-6 shadow-2xl">
+            <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-brand-primary to-amber-400 flex items-center justify-center text-white text-3xl shadow-glow"><i class="fa-solid fa-circle-check"></i></div>
+            <h3 class="text-2xl font-black text-white" data-i18n="modal_checkout.title">Заказ успешно оформлен! 🎉</h3>
+            <div class="bg-brand-surface border border-brand-border/60 rounded-2xl p-4 space-y-3 text-xs sm:text-sm text-left">
+                <div class="flex justify-between pb-2 border-b border-brand-border/50"><span class="text-gray-400" data-i18n="modal_checkout.order_id">Номер заказа</span><span id="checkout-order-id" class="font-extrabold text-brand-primary">#BB-123456</span></div>
+                <div class="flex justify-between"><span class="text-gray-400" data-i18n="modal_checkout.total_paid">Оплаченная сумма</span><span id="checkout-total-paid" class="font-extrabold text-white">$0.00</span></div>
+            </div>
+            <button id="close-checkout-modal" class="w-full py-3.5 bg-brand-primary text-white font-bold rounded-xl shadow-glow" data-i18n="modal_checkout.continue_btn">Продолжить покупки</button>
+        </div>
+    </div>
+
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none max-w-sm w-full px-4"></div>
+</body>
+</html>

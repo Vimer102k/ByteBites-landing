@@ -1,0 +1,133 @@
+{
+  "nav": {
+    "home": "Home",
+    "menu": "Menu",
+    "about": "About Us",
+    "vipClub": "VIP Club",
+    "cart": "Cart",
+    "addDish": "Add Dish"
+  },
+  "hero": {
+    "badge": "⚡ Ultra-Fast 20 Min Delivery Guaranteed",
+    "title_main": "Crispy. Juicy.",
+    "title_accent": "Pure Perfection.",
+    "subtitle": "Artisan smash burgers, hand-crafted truffle sourdough pizzas, and fiery sides delivered scorching hot directly to your door.",
+    "exploreMenu": "Explore Full Menu",
+    "joinVip": "Join VIP Club",
+    "deliveryTime": "20 Mins",
+    "deliveryLabel": "Average Delivery",
+    "rating": "4.9 / 5.0",
+    "reviewsLabel": "12k+ Foodie Reviews",
+    "fresh": "100% Fresh",
+    "halalLabel": "Certified Halal Angus"
+  },
+  "menu": {
+    "tag": "CRAFTED WITH PASSION",
+    "title": "Explore Our Signature Menu",
+    "subtitle": "Every dish is cooked fresh to order with locally sourced farm ingredients and premium signature sauces.",
+    "search_placeholder": "Search burgers, pizza, drinks...",
+    "categories": {
+      "all": "All Items",
+      "burgers": "Burgers",
+      "pizza": "Pizza",
+      "sides": "Sides & Appetizers",
+      "drinks": "Drinks & Desserts"
+    },
+    "filter_all": "All",
+    "filter_burgers": "Burgers",
+    "filter_pizza": "Pizza",
+    "filter_sides": "Sides",
+    "filter_drinks": "Drinks",
+    "addToCart": "Add to Cart",
+    "noItems": "No items found in this category.",
+    "loading": "Loading delicious items...",
+    "outOfStock": "Out of Stock"
+  },
+  "about": {
+    "tag": "THE BYTEBITES STANDARD",
+    "title": "Why Foodies Choose ByteBites",
+    "subtitle": "We don't do fast food shortcuts. We make authentic gourmet bites fast.",
+    "feature1_title": "Searing Hot Smash Grill",
+    "feature1_desc": "Double smashed premium Angus beef with crispy lacy edges and maximum umami flavor in every single bite.",
+    "feature2_title": "72-Hour Fermented Dough",
+    "feature2_desc": "Hand-stretched authentic sourdough pizza crust baked at 450°C for the ultimate airy, bubbly crunch.",
+    "feature3_title": "Hyper-Speed Thermal Delivery",
+    "feature3_desc": "Custom temperature-controlled smart courier bags ensure your food arrives boiling hot and crispy, never soggy."
+  },
+  "vip": {
+    "badge": "EXCLUSIVE COMMUNITY",
+    "title": "Unlock 20% Off Your First Order",
+    "subtitle": "Join over 25,000+ ByteBites VIP Club members and receive secret weekly drops, instant cashback, and birthday treats.",
+    "button": "Claim VIP Pass",
+    "guarantee": "No spam, unsubscribe anytime in 1-click."
+  },
+  "cart": {
+    "title": "Your Order Cart",
+    "items_count": "items",
+    "empty_title": "Your cart is starving!",
+    "empty_desc": "Explore our delicious menu and add some signature smash burgers or crispy sides to get started.",
+    "browse_btn": "Browse Menu",
+    "subtotal": "Subtotal",
+    "delivery_fee": "Estimated Delivery",
+    "delivery_free": "FREE",
+    "total": "Total Amount",
+    "checkout_btn": "Proceed to Checkout",
+    "clear_btn": "Clear Cart"
+  },
+  "modal_add_dish": {
+    "title": "Add New Dish to Menu",
+    "subtitle": "Insert directly to Supabase cloud database with instant local fallback.",
+    "name_label": "Dish Name",
+    "name_placeholder": "e.g. Double Truffle Burger",
+    "category_label": "Category",
+    "price_label": "Price ($)",
+    "badge_label": "Badge (Optional)",
+    "badge_placeholder": "e.g. Popular ⭐, Spicy 🔥",
+    "rating_label": "Rating (1.0 - 5.0)",
+    "image_label": "Image URL (Unsplash / Direct Link)",
+    "image_placeholder": "https://images.unsplash.com/...",
+    "desc_label": "Short Description",
+    "desc_placeholder": "Describe the ingredients, flavor profile and highlights...",
+    "cancel_btn": "Cancel",
+    "submit_btn": "Save & Publish Dish"
+  },
+  "modal_vip": {
+    "title": "Join ByteBites VIP Club",
+    "subtitle": "Get instant 20% discount coupon code and secret menu access.",
+    "name_label": "Full Name",
+    "name_placeholder": "John Doe",
+    "email_label": "Email Address",
+    "email_placeholder": "john@example.com",
+    "phone_label": "Phone Number",
+    "phone_placeholder": "+1 (555) 019-2834",
+    "cancel_btn": "Maybe Later",
+    "submit_btn": "Join VIP Club & Get -20%"
+  },
+  "modal_checkout": {
+    "title": "Order Placed Successfully! 🎉",
+    "subtitle": "Your order has been sent to the kitchen and our chefs are already prepping your meal.",
+    "order_id": "Order Reference ID",
+    "est_time": "Estimated Delivery Time",
+    "est_time_val": "20-25 Minutes",
+    "total_paid": "Total Amount Paid",
+    "continue_btn": "Back to Home / Order More"
+  },
+  "toasts": {
+    "added": "Added to cart!",
+    "removed": "Item removed from cart.",
+    "cleared": "Cart cleared.",
+    "vip_success": "Welcome to VIP Club! Your 20% discount code is BYTE20.",
+    "dish_added": "New dish successfully published to menu!",
+    "dish_error": "Failed to add dish. Please check your inputs.",
+    "order_placed": "Checkout complete! Order received."
+  },
+  "footer": {
+    "brand_desc": "Next-generation fast-casual dining. High-tech ordering, farm-fresh local ingredients, and blazing fast thermal delivery.",
+    "links_title": "Quick Navigation",
+    "hours_title": "Opening Hours",
+    "hours_weekdays": "Mon - Thu: 10:00 AM - 11:00 PM",
+    "hours_weekends": "Fri - Sun: 10:00 AM - 01:00 AM",
+    "contact_title": "Contact & Support",
+    "rights": "All rights reserved. Built with passion for foodies."
+  }
+}

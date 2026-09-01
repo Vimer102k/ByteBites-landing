@@ -1,0 +1,133 @@
+{
+  "nav": {
+    "home": "Bosh sahifa",
+    "menu": "Menyu",
+    "about": "Biz haqimizda",
+    "vipClub": "VIP Klub",
+    "cart": "Savat",
+    "addDish": "Taom qo'shish"
+  },
+  "hero": {
+    "badge": "⚡ 20 daqiqada tezkor yetkazib berish",
+    "title_main": "Qarsildoq. Shirali.",
+    "title_accent": "Mukammal ta'm.",
+    "subtitle": "Mualliflik smash burgerlari, tryufelli pitsa va issiq gazaklar to'g'ridan-to'g'ri eshigingiz oldiga yetkaziladi.",
+    "exploreMenu": "Menyuni ko'rish",
+    "joinVip": "VIP Klubga a'zo bo'lish",
+    "deliveryTime": "20 daqiqa",
+    "deliveryLabel": "O'rtacha yetkazish vaqti",
+    "rating": "4.9 / 5.0",
+    "reviewsLabel": "12 000+ dan ortiq fikrlar",
+    "fresh": "100% Yangi",
+    "halalLabel": "Halol Angus mol go'shti"
+  },
+  "menu": {
+    "tag": "ISHTIYOQ BILAN TAYYORLANGAN",
+    "title": "Bizning sara menyuyimiz",
+    "subtitle": "Har bir taom buyurtma berilganidan so'ng yangi mahsulotlar va maxsus souslar bilan pishiriladi.",
+    "search_placeholder": "Burger, pitsa yoki ichimlik qidirish...",
+    "categories": {
+      "all": "Barchasi",
+      "burgers": "Burgerlar",
+      "pizza": "Pitsa",
+      "sides": "Gazaklar",
+      "drinks": "Ichimliklar"
+    },
+    "filter_all": "Barchasi",
+    "filter_burgers": "Burgerlar",
+    "filter_pizza": "Pitsa",
+    "filter_sides": "Gazaklar",
+    "filter_drinks": "Ichimliklar",
+    "addToCart": "Savatga",
+    "noItems": "Ushbu toifada taomlar mavjud emas.",
+    "loading": "Mazali taomlar yuklanmoqda...",
+    "outOfStock": "Tugagan"
+  },
+  "about": {
+    "tag": "BYTEBITES STANDARTLARI",
+    "title": "Nega aynan ByteBites?",
+    "subtitle": "Biz sifatda murosaga bormaymiz. Biz haqiqiy premium fast-fudni tezkor tayyorlaymiz.",
+    "feature1_title": "Qizdirilgan smash gril",
+    "feature1_desc": "Qarsildoq qobiqli va shirali ikki qavatli mol go'shti kotleti.",
+    "feature2_title": "72 soat xamirturushda achitilgan",
+    "feature2_desc": "450°C haroratda pechda pishirilgan yengil va havodor pitsa xamiri.",
+    "feature3_title": "Termo-sumkalarda tez yetkazish",
+    "feature3_desc": "Taomingiz sovimasdan, qarsildoq va qaynoq holda yetib keladi."
+  },
+  "vip": {
+    "badge": "YOPINCHIQ KLUB",
+    "title": "Birinchi buyurtmaga 20% chegirma",
+    "subtitle": "25 000+ VIP a'zolarga qo'shiling va maxsus promokodlar va sovg'alarga ega bo'ling.",
+    "button": "VIP Pass olish",
+    "guarantee": "Spam yo'q, xohlagan vaqtda bekor qilish mumkin."
+  },
+  "cart": {
+    "title": "Sizning savatingiz",
+    "items_count": "taom",
+    "empty_title": "Savatingiz bo'sh!",
+    "empty_desc": "Menyudan mazali burgerlar, pitsa yoki gazaklar tanlang.",
+    "browse_btn": "Menyuga o'tish",
+    "subtotal": "Jami",
+    "delivery_fee": "Yetkazib berish",
+    "delivery_free": "BEPUL",
+    "total": "To'lov summasi",
+    "checkout_btn": "Buyurtmani rasmiylashtirish",
+    "clear_btn": "Tozalash"
+  },
+  "modal_add_dish": {
+    "title": "Menyuga yangi taom qo'shish",
+    "subtitle": "Supabase bulutli ma'lumotlar bazasiga saqlash.",
+    "name_label": "Taom nomi",
+    "name_placeholder": "Masalan: Double Truffle Burger",
+    "category_label": "Toifa",
+    "price_label": "Narxi ($)",
+    "badge_label": "Nishon (ixtiyoriy)",
+    "badge_placeholder": "Masalan: Mashhur ⭐, Achchiq 🔥",
+    "rating_label": "Reyting (1.0 - 5.0)",
+    "image_label": "Rasm havolasi (URL)",
+    "image_placeholder": "https://images.unsplash.com/...",
+    "desc_label": "Tavsifi",
+    "desc_placeholder": "Tarkibi va ta'mi haqida yozing...",
+    "cancel_btn": "Bekor qilish",
+    "submit_btn": "Saqlash va chop etish"
+  },
+  "modal_vip": {
+    "title": "ByteBites VIP Klubiga a'zo bo'ling",
+    "subtitle": "20% lik chegirma promokodini darhol qo'lga kiriting.",
+    "name_label": "Ism sharifingiz",
+    "name_placeholder": "Ali Valiyev",
+    "email_label": "Elektron pochta",
+    "email_placeholder": "ali@example.com",
+    "phone_label": "Telefon raqamingiz",
+    "phone_placeholder": "+998 90 123-45-67",
+    "cancel_btn": "Keyinroq",
+    "submit_btn": "A'zo bo'lish va -20% olish"
+  },
+  "modal_checkout": {
+    "title": "Buyurtma muvaffaqiyatli qabul qilindi! 🎉",
+    "subtitle": "Buyurtmangiz oshxonaga yuborildi, oshpazlarimiz tayyorlashni boshladilar.",
+    "order_id": "Buyurtma raqami",
+    "est_time": "Yetkazish vaqti",
+    "est_time_val": "20-25 daqiqa",
+    "total_paid": "To'langan summa",
+    "continue_btn": "Bosh sahifaga qaytish"
+  },
+  "toasts": {
+    "added": "Savatga qo'shildi!",
+    "removed": "Taom savatdan o'chirildi.",
+    "cleared": "Savat tozalandi.",
+    "vip_success": "VIP Klubga xush kelibsiz! 20% lik promokod: BYTE20",
+    "dish_added": "Yangi taom menyuga muvaffaqiyatli qo'shildi!",
+    "dish_error": "Xatolik yuz berdi. Ma'lumotlarni tekshiring.",
+    "order_placed": "Buyurtma qabul qilindi!"
+  },
+  "footer": {
+    "brand_desc": "Yangi avlod fast-fudi: ilg'or buyurtma texnologiyalari, tabiiy mahsulotlar va tezkor termo-yetkazish.",
+    "links_title": "Tezkor havolalar",
+    "hours_title": "Ish vaqti",
+    "hours_weekdays": "Dush - Pay: 10:00 - 23:00",
+    "hours_weekends": "Juma - Yak: 10:00 - 01:00",
+    "contact_title": "Aloqa va qo'llab-quvvatlash",
+    "rights": "Barcha huquqlar himoyalangan."
+  }
+}

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформление заказа | ByteBites Cafe</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#121212',
+                            surface: '#1A1A1A',
+                            card: '#1E1E1E',
+                            border: '#2A2A2A',
+                            primary: '#FF6B00',
+                            primaryHover: '#E05E00',
+                            accent: '#FF8C38',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Supabase JS Client SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Custom Modular CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Modular App Entry Script -->
+    <script type="module" src="js/main.js"></script>
+</head>
+<body data-page="checkout" class="bg-brand-bg text-white antialiased min-h-screen flex flex-col selection:bg-brand-primary selection:text-white">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-brand-bg/90 border-b border-brand-border/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-primary to-amber-500 flex items-center justify-center shadow-glow group-hover:scale-105 transition-transform duration-300">
+                    <i class="fa-solid fa-fire-flame-curved text-xl text-white"></i>
+                </div>
+                <span class="text-2xl font-extrabold tracking-tight text-white group-hover:text-brand-primary transition-colors">
+                    ByteBites<span class="text-brand-primary">.</span>
+                </span>
+            </a>
+
+            <nav class="flex items-center gap-6 text-sm font-semibold text-gray-300">
+                <a href="index.html" data-i18n="nav.home" class="hover:text-brand-primary transition-colors">Главная</a>
+                <a href="menu.html" data-i18n="nav.menu" class="hover:text-brand-primary transition-colors">Меню</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <button id="lang-switch-btn" aria-label="Select Language" class="bg-brand-surface hover:bg-brand-card border border-brand-border hover:border-brand-primary/50 text-gray-200 px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all">
+                        <i class="fa-solid fa-globe text-brand-primary"></i>
+                        <span id="current-lang-label">RU</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] text-gray-400"></i>
+                    </button>
+                    <div id="lang-dropdown-menu" class="lang-dropdown hidden absolute right-0 mt-2 w-36 bg-brand-surface border border-brand-border rounded-xl shadow-2xl overflow-hidden z-50 py-1">
+                        <button data-lang="ru" class="w-full px-4 py-2 text-left text-xs font-semibold text-gray-300 hover:bg-brand-primary hover:text-white flex items-center justify-between">
+                            <span>Русский</span>
+                            <span class="text-[10px] opacity-75">RU</span>
+                        </button>
+                        <button data-lang="en" class="w-full px-4 py-2 text-left text-xs font-semibold text-gray-300 hover:bg-brand-primary hover:text-white flex items-center justify-between">
+                            <span>English</span>
+                            <span class="text-[10px] opacity-75">EN</span>
+                        </button>
+                        <button data-lang="uz" class="w-full px-4 py-2 text-left text-xs font-semibold text-gray-300 hover:bg-brand-primary hover:text-white flex items-center justify-between">
+                            <span>O'zbekcha</span>
+                            <span class="text-[10px] opacity-75">UZ</span>
+                        </button>
+                    </div>
+                </div>
+
+                <button id="navbar-cart-btn" class="relative bg-brand-surface hover:bg-brand-card border border-brand-border text-white p-2.5 sm:px-4 sm:py-2.5 rounded-xl transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-bag-shopping text-base"></i>
+                    <span class="hidden sm:inline text-xs font-bold" data-i18n="nav.cart">Корзина</span>
+                    <span id="navbar-cart-count" class="hidden absolute -top-2 -right-2 bg-brand-primary text-white text-xs font-extrabold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CHECKOUT FORM & SUMMARY -->
+    <main class="flex-grow py-12 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div id="checkout-success-view" class="hidden py-16 text-center space-y-6 max-w-md mx-auto">
+            <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-brand-primary to-amber-400 flex items-center justify-center text-white text-3xl shadow-glow">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h2 class="text-3xl font-extrabold text-white" data-i18n="modal_checkout.title">Заказ успешно оформлен! 🎉</h2>
+            <p class="text-gray-400 text-sm" data-i18n="modal_checkout.subtitle">Ваш заказ передан на кухню, повара уже начали готовить ваше любимое блюдо.</p>
+            <a href="index.html" class="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-primary hover:bg-brand-primaryHover text-white font-bold rounded-xl shadow-glow" data-i18n="modal_checkout.continue_btn">
+                Вернуться на главную
+            </a>
+        </div>
+
+        <div id="checkout-form-container" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Delivery Details Form -->
+            <div class="lg:col-span-7 bg-brand-card border border-brand-border rounded-3xl p-6 sm:p-8 space-y-6">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-white">Детали доставки</h2>
+                    <p class="text-xs text-gray-400 mt-1">Заполните адрес и контактную информацию</p>
+                </div>
+
+                <form id="checkout-order-form" class="space-y-4">
+                    <div class="space-y-1.5">
+                        <label class="block text-xs font-bold text-gray-300 uppercase">ФИО получателя</label>
+                        <input type="text" required placeholder="Иван Иванов" class="w-full bg-brand-surface border border-brand-border focus:border-brand-primary text-white text-sm rounded-xl px-4 py-3 outline-none">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-1.5">
+                            <label class="block text-xs font-bold text-gray-300 uppercase">Телефон</label>
+                            <input type="tel" required placeholder="+7 (999) 000-00-00" class="w-full bg-brand-surface border border-brand-border focus:border-brand-primary text-white text-sm rounded-xl px-4 py-3 outline-none">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="block text-xs font-bold text-gray-300 uppercase">Email</label>
+                            <input type="email" required placeholder="ivan@example.com" class="w-full bg-brand-surface border border-brand-border focus:border-brand-primary text-white text-sm rounded-xl px-4 py-3 outline-none">
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label class="block text-xs font-bold text-gray-300 uppercase">Адрес доставки</label>
+                        <textarea rows="2" required placeholder="Город, улица, дом, квартира, подъезд, этаж..." class="w-full bg-brand-surface border border-brand-border focus:border-brand-primary text-white text-sm rounded-xl px-4 py-2.5 outline-none resize-none"></textarea>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label class="block text-xs font-bold text-gray-300 uppercase">Способ оплаты</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="flex items-center gap-3 p-3.5 bg-brand-surface border-2 border-brand-primary rounded-xl cursor-pointer">
+                                <input type="radio" name="payment" value="card" checked class="accent-brand-primary">
+                                <span class="text-sm font-semibold">Банковская карта</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3.5 bg-brand-surface border border-brand-border rounded-xl cursor-pointer">
+                                <input type="radio" name="payment" value="cash" class="accent-brand-primary">
+                                <span class="text-sm font-semibold text-gray-300">При получении</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit" class="w-full py-4 bg-brand-primary hover:bg-brand-primaryHover text-white font-bold rounded-xl shadow-glow transition-all flex items-center justify-center gap-2">
+                            <span>Подтвердить заказ</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Order Summary Sidebar -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="bg-brand-card border border-brand-border rounded-3xl p-6 space-y-4">
+                    <h3 class="text-lg font-extrabold text-white" data-i18n="cart.title">Ваш заказ</h3>
+                    <div id="checkout-items-summary" class="space-y-2"></div>
+                    
+                    <div class="border-t border-brand-border/80 pt-4 space-y-2 text-sm text-gray-400">
+                        <div class="flex justify-between">
+                            <span data-i18n="cart.subtotal">Сумма</span>
+                            <span id="checkout-page-subtotal" class="font-bold text-white">$0.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span data-i18n="cart.delivery_fee">Доставка</span>
+                            <span class="font-bold text-emerald-400" data-i18n="cart.delivery_free">БЕСПЛАТНО</span>
+                        </div>
+                        <div class="flex justify-between text-lg font-black text-white pt-2 border-t border-brand-border/60">
+                            <span data-i18n="cart.total">Итого</span>
+                            <span id="checkout-page-total" class="text-brand-primary">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black/90 border-t border-brand-border/80 py-8 text-gray-400 text-sm mt-16 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>© 2026 ByteBites Cafe. <span data-i18n="footer.rights">Все права защищены.</span></p>
+        </div>
+    </footer>
+
+    <!-- CART DRAWER & TOAST CONTAINER -->
+    <div id="cart-backdrop" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 hidden"></div>
+    <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-brand-surface border-l border-brand-border z-50 transform translate-x-full transition-transform duration-300 flex flex-col justify-between shadow-2xl">
+        <div class="p-6 border-b border-brand-border/80 flex items-center justify-between bg-brand-bg">
+            <div class="flex items-center gap-3"><div class="w-9 h-9 rounded-lg bg-brand-primary/20 text-brand-primary flex items-center justify-center"><i class="fa-solid fa-bag-shopping"></i></div><h3 class="text-lg font-extrabold text-white">Корзина</h3></div>
+            <button id="close-cart-btn" class="w-9 h-9 rounded-lg bg-brand-card text-gray-400 hover:text-white flex items-center justify-center"><i class="fa-solid fa-xmark text-lg"></i></button>
+        </div>
+        <div id="cart-items-container" class="p-6 flex-grow overflow-y-auto space-y-4"></div>
+        <div id="cart-summary-footer" class="p-6 border-t border-brand-border/80 bg-brand-bg">
+            <div class="flex justify-between text-base font-extrabold text-white mb-4"><span>Итого</span><span id="cart-total-val" class="text-brand-primary">$0.00</span></div>
+            <button id="cart-checkout-btn" class="w-full py-4 bg-brand-primary text-white font-bold rounded-xl shadow-glow">Оформить заказ</button>
+        </div>
+    </aside>
+
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none max-w-sm w-full px-4"></div>
+</body>
+</html>
