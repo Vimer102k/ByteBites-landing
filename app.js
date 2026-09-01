@@ -481,12 +481,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
         } else {
             cartItemsContainer.innerHTML = cart.map(item => {
-                console.log(item.image);
                 const itemImg = item.image || DEFAULT_IMAGE_FALLBACK;
                 const safeName = item.name ? item.name.replace(/"/g, '&quot;') : 'Food item';
                 return `
                 <div class="bg-brand-card/90 border border-brand-border/80 hover:border-brand-primary/40 p-3.5 rounded-2xl flex items-center justify-between gap-3 shadow-md transition-all">
-                    <img src="${itemImg}" alt="${safeName}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576107232684-1279f3908594?q=80&w=300';" class="w-14 h-14 object-cover rounded-xl bg-brand-surface border border-brand-border/50">
+                    <img src="${itemImg}" alt="${safeName}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576107232684-1279f3908594?q=80&w=800&auto=format&fit=crop';" class="w-14 h-14 object-cover rounded-xl bg-brand-surface border border-brand-border/50">
                     <div class="flex-grow min-w-0">
                         <h4 class="text-xs sm:text-sm font-bold text-white truncate">${item.name}</h4>
                         <p class="text-xs text-brand-primary font-extrabold mt-0.5">$${(item.price * item.quantity).toFixed(2)} <span class="text-[10px] text-gray-400 font-normal">($${item.price.toFixed(2)} ea)</span></p>

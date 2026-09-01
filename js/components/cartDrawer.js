@@ -3,6 +3,7 @@
  */
 import { cartStore } from '../state/cartStore.js';
 import { formatPrice, escapeHtml } from '../utils/formatters.js';
+import { CONFIG } from '../config/config.js';
 import { t } from '../i18n/i18n.js';
 import { toast } from './toast.js';
 
@@ -85,13 +86,13 @@ export function initCartDrawer() {
 
         if (itemsContainer) {
             itemsContainer.innerHTML = items.map(item => {
-                console.log(item.image);
+                const itemImg = item.image || CONFIG.DEFAULT_IMAGE_FALLBACK;
                 return `
                 <div class="flex items-center gap-3.5 p-3 rounded-xl bg-brand-surface border border-brand-border/80 group">
                     <img 
-                        src="${item.image}" 
+                        src="${escapeHtml(itemImg)}" 
                         alt="${escapeHtml(item.name)}" 
-                        onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576107232684-1279f3908594?q=80&w=300';"
+                        onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576107232684-1279f3908594?q=80&w=800&auto=format&fit=crop';"
                         class="w-16 h-16 rounded-lg object-cover flex-shrink-0"
                     >
                     <div class="flex-1 min-w-0">
