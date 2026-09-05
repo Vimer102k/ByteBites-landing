@@ -52,7 +52,7 @@ export const INITIAL_MENU_ITEMS = [
         rating: 4.7,
         description: "Crispy skin-on fries smothered in warm cheddar queso, smoked bacon bits & fresh chives.",
         price: 6.99,
-        image: "https://images.unsplash.com/photo-1576107232684-1279f3908594?q=80&w=800&auto=format&fit=crop"
+        image: "https://images.unsplash.com/photo-1585109649139-366815a0d713?w=300"
     },
     {
         id: 5,

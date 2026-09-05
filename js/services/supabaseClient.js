@@ -8,12 +8,19 @@ import { StorageService } from './storageService.js';
 let supabase = null;
 
 // Initialize Supabase if credentials are valid and SDK is loaded
-if (window.supabase && CONFIG.SUPABASE.URL && CONFIG.SUPABASE.ANON_KEY) {
+const supabaseUrl = (typeof window !== 'undefined' && window.__ENV__?.SUPABASE_URL) || CONFIG.SUPABASE.URL;
+const supabaseAnonKey = (typeof window !== 'undefined' && window.__ENV__?.SUPABASE_ANON_KEY) || CONFIG.SUPABASE.ANON_KEY;
+
+if (typeof window !== 'undefined' && window.supabase && supabaseUrl && supabaseAnonKey && supabaseUrl.trim() !== '' && supabaseAnonKey.trim() !== '') {
     try {
-        supabase = window.supabase.createClient(CONFIG.SUPABASE.URL, CONFIG.SUPABASE.ANON_KEY);
+        supabase = window.supabase.createClient(supabaseUrl.trim(), supabaseAnonKey.trim());
     } catch (err) {
-        console.warn('[SupabaseClient] Initialization failed, using local mock data:', err);
+        console.info('[SupabaseClient] Initialization skipped/failed, using local mock data:', err);
     }
+}
+
+export function getSupabaseClient() {
+    return supabase;
 }
 
 export const MenuService = {

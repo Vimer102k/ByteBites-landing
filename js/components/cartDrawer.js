@@ -92,7 +92,7 @@ export function initCartDrawer() {
                     <img 
                         src="${escapeHtml(itemImg)}" 
                         alt="${escapeHtml(item.name)}" 
-                        onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576107232684-1279f3908594?q=80&w=800&auto=format&fit=crop';"
+                        onerror="this.onerror=null; this.src='${CONFIG.DEFAULT_IMAGE_FALLBACK}';"
                         class="w-16 h-16 rounded-lg object-cover flex-shrink-0"
                     >
                     <div class="flex-1 min-w-0">

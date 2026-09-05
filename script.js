@@ -372,7 +372,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!cartDrawer || !cartBackdrop) return;
         cartDrawer.classList.add('translate-x-full');
         cartBackdrop.classList.remove('opacity-100');
-        cartBackdrop.classList.add('opacity-0', 'pointer-events-none');
+        cartBackdrop.classList.add('opacity-0', 'pointer-events-none', 'hidden');
         document.body.style.overflow = '';
     }
 

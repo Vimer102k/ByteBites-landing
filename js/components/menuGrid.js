@@ -140,7 +140,7 @@ export class MenuGrid {
                             loading="lazy"
                             decoding="async"
                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            onerror="this.src='${CONFIG.DEFAULT_IMAGE_FALLBACK}'"
+                            onerror="this.onerror=null; this.src='${CONFIG.DEFAULT_IMAGE_FALLBACK}';"
                         >
                         ${badgeHtml}
                         <div class="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-black/60 backdrop-blur-md border border-white/10 text-amber-400 text-xs font-bold flex items-center gap-1">

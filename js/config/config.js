@@ -11,19 +11,15 @@ export const CONFIG = {
         THEME: 'bytebites_theme',
         CUSTOM_DISHES: 'bytebites_custom_dishes'
     },
-    // Supabase Configuration - Fill in your credentials when connecting cloud DB
+    // Supabase Configuration - Fill in your project URL and public Anon Key to enable Cloud Database & Edge Functions
     SUPABASE: {
-        URL: '',
-        ANON_KEY: '',
+        URL: 'https://qrrvvnymmjbbanflgvxm.supabase.co', // e.g. 'https://your-project-ref.supabase.co'
+        ANON_KEY: 'sb_publishable_BShghNM3hvr41CWsQIY7Mw_JsOnBFyj', // e.g. 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
         TABLE_DISHES: 'dishes',
         TABLE_VIP: 'vip_members',
         TABLE_ORDERS: 'orders'
     },
-    // Telegram Bot API Configuration
-    TELEGRAM: {
-        BOT_TOKEN: '8518807306:AAEPeFrcclNxCv7sGPIn8ohUDG6BIJaBMn8',
-        CHAT_ID: '5595887601'
-    },
+    // Telegram is securely handled via Supabase Edge Function ('send-telegram-order')
     DEFAULT_IMAGE_FALLBACK: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop',
     DELIVERY_FEE: 0.00,
     CURRENCY_SYMBOL: '$'
